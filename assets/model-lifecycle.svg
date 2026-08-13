@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+  <title id="title">Predictive model lifecycle</title>
+  <desc id="desc">The workflow moves from training through validation and temporal testing to a human-reviewed support queue, with monitoring controls.</desc>
+  <rect width="1200" height="470" fill="#f8fafc"/>
+  <text x="60" y="62" fill="#0f172a" font-family="Arial, sans-serif" font-size="32" font-weight="700">Leakage-resistant model lifecycle</text>
+  <text x="60" y="96" fill="#475569" font-family="Arial, sans-serif" font-size="18">Each cohort has one role; the holdout year cannot influence model or threshold selection.</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="60" y="145" width="235" height="145" rx="18" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+    <text x="84" y="184" fill="#1e3a8a" font-size="18" font-weight="700">2023–24 TRAIN</text>
+    <text x="84" y="220" fill="#172554" font-size="17">Fit imputation</text>
+    <text x="84" y="247" fill="#172554" font-size="17">Fit candidate models</text>
+    <text x="84" y="274" fill="#172554" font-size="17">Lock feature policy</text>
+
+    <path d="M310 217 H345" stroke="#64748b" stroke-width="4"/>
+    <path d="M338 207 L350 217 L338 227" fill="none" stroke="#64748b" stroke-width="4"/>
+
+    <rect x="365" y="145" width="235" height="145" rx="18" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+    <text x="389" y="184" fill="#14532d" font-size="18" font-weight="700">2024–25 VALIDATE</text>
+    <text x="389" y="220" fill="#14532d" font-size="17">Select by PR AUC</text>
+    <text x="389" y="247" fill="#14532d" font-size="17">Check calibration</text>
+    <text x="389" y="274" fill="#14532d" font-size="17">Set 15% threshold</text>
+
+    <path d="M615 217 H650" stroke="#64748b" stroke-width="4"/>
+    <path d="M643 207 L655 217 L643 227" fill="none" stroke="#64748b" stroke-width="4"/>
+
+    <rect x="670" y="145" width="235" height="145" rx="18" fill="#fef3c7" stroke="#fbbf24" stroke-width="2"/>
+    <text x="694" y="184" fill="#78350f" font-size="18" font-weight="700">2025–26 TEST</text>
+    <text x="694" y="220" fill="#78350f" font-size="17">One-time evaluation</text>
+    <text x="694" y="247" fill="#78350f" font-size="17">Audit subgroups</text>
+    <text x="694" y="274" fill="#78350f" font-size="17">Measure capacity drift</text>
+
+    <path d="M920 217 H955" stroke="#64748b" stroke-width="4"/>
+    <path d="M948 207 L960 217 L948 227" fill="none" stroke="#64748b" stroke-width="4"/>
+
+    <rect x="975" y="145" width="165" height="145" rx="18" fill="#ede9fe" stroke="#a78bfa" stroke-width="2"/>
+    <text x="997" y="184" fill="#4c1d95" font-size="18" font-weight="700">REVIEW</text>
+    <text x="997" y="220" fill="#4c1d95" font-size="17">Verify context</text>
+    <text x="997" y="247" fill="#4c1d95" font-size="17">Offer support</text>
+    <text x="997" y="274" fill="#4c1d95" font-size="17">Document action</text>
+  </g>
+
+  <rect x="190" y="340" width="820" height="70" rx="18" fill="#0f172a"/>
+  <text x="600" y="371" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="19" font-weight="700">Continuous monitoring and governance</text>
+  <text x="600" y="398" text-anchor="middle" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="16">data quality • drift • calibration • workload • subgroup gaps • human review • retirement criteria</text>
+</svg>

@@ -1,0 +1,7 @@
+data/
+artifacts/
+.Rhistory
+.RData
+.Rproj.user/
+outputs/*.csv
+!outputs/README.md
