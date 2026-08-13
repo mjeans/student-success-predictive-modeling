@@ -1,0 +1,29 @@
+name: Validate predictive modeling project
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+      - name: Verify recommended package availability
+        run: Rscript -e 'stopifnot(requireNamespace("rpart", quietly = TRUE))'
+      - name: Run end-to-end workflow
+        run: make all
+      - name: Check required outputs
+        run: |
+          test -s outputs/validation_model_comparison.csv
+          test -s outputs/test_metrics.csv
+          test -s outputs/subgroup_metrics.csv
+          test -s outputs/scored_holdout_cohort.csv
