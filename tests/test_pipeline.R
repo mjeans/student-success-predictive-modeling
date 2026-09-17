@@ -5,6 +5,23 @@ source("R/metrics.R")
 source("R/modeling.R")
 source("R/reporting.R")
 
+stopifnot(average_precision(c(1L, 0L), c(.5, .5)) == .5)
+stopifnot(average_precision(c(0L, 1L), c(.5, .5)) == .5)
+stopifnot(average_precision(c(1L, 0L), c(.9, .1)) == 1)
+stopifnot(average_precision(c(1L, 0L), c(.1, .9)) == .5)
+stopifnot(is.na(average_precision(c(0L, 0L), c(.1, .8))))
+stopifnot(average_precision(c(1L, 1L), c(.1, .8)) == 1)
+metric_y <- c(1L, 0L, 1L, 0L, 1L)
+metric_p <- c(.8, .8, .4, .4, .1)
+set.seed(20260917)
+for (i in seq_len(100L)) {
+  perm <- sample(seq_along(metric_y))
+  stopifnot(isTRUE(all.equal(average_precision(metric_y, metric_p),
+                            average_precision(metric_y[perm], metric_p[perm]))))
+}
+stopifnot(inherits(try(average_precision(c(0, 2), c(.1, .2)),
+                       silent = TRUE), "try-error"))
+
 data_one <- generate_student_success_data(250L)
 data_two <- generate_student_success_data(250L)
 

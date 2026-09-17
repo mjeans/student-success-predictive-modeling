@@ -1,6 +1,6 @@
 .PHONY: all data train evaluate score test clean
 
-all: data train evaluate score test
+all: data train evaluate score report test
 
 data:
 	Rscript scripts/01_generate_data.R
@@ -16,6 +16,9 @@ score: train
 
 test:
 	Rscript tests/test_pipeline.R
+
+report: evaluate
+	Rscript scripts/05_publish_report.R
 
 clean:
 	rm -rf data artifacts

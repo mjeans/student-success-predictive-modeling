@@ -17,7 +17,7 @@
 
     <rect x="365" y="145" width="235" height="145" rx="18" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
     <text x="389" y="184" fill="#14532d" font-size="18" font-weight="700">2024–25 VALIDATE</text>
-    <text x="389" y="220" fill="#14532d" font-size="17">Select by PR AUC</text>
+    <text x="389" y="220" fill="#14532d" font-size="17">Select by AP</text>
     <text x="389" y="247" fill="#14532d" font-size="17">Check calibration</text>
     <text x="389" y="274" fill="#14532d" font-size="17">Set 15% threshold</text>
 

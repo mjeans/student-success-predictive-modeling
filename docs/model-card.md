@@ -39,7 +39,7 @@ The temporal split is more demanding and operationally realistic than a random s
 1. Logistic regression with main effects and missingness indicators
 2. Constrained decision tree with maximum depth 5 and minimum leaf size 75
 
-Logistic regression is favored in the reference run because it provides stronger validation PR AUC and probability accuracy while remaining interpretable.
+Logistic regression is favored in the reference run because it provides stronger validation average precision and probability accuracy while remaining interpretable.
 
 ## Predictor policy
 
@@ -68,7 +68,7 @@ Audit-only fields are never included in the model formula.
 
 ## Evaluation
 
-The project reports ROC AUC, PR AUC, Brier score, log loss, calibration intercept and slope, expected calibration error, sensitivity, specificity, precision, and flagged rate. Subgroup tables add sample size, prevalence, review rate, sensitivity, precision, and Brier score. Cells below 100 records are suppressed.
+The project reports ROC AUC, average precision, Brier score, log loss, calibration intercept and slope, expected calibration error, sensitivity, specificity, precision, and flagged rate. Subgroup tables add sample size, prevalence, review rate, sensitivity, precision, and Brier score. Cells below 100 records are suppressed.
 
 ## Threshold policy
 
@@ -86,3 +86,5 @@ The validation threshold is the 85th percentile of validation probabilities, cor
 ## Monitoring recommendations
 
 Before any real deployment, define owners and review cadence for data quality, prevalence, score distribution, flagged rate, missingness, discrimination, calibration, subgroup gaps, intervention capacity, appeals, and retirement criteria. Revalidate after material policy, population, product, or data-pipeline changes.
+
+Average precision (AP) groups tied scores into threshold-level recall increments; it is not trapezoidal PR area. [Executed results](../outputs/report.md) include school-cluster bootstrap intervals for subgroup sensitivity and precision, positive/flagged denominators, and low-denominator suppression. These intervals hold the fitted model fixed and do not certify fairness or capture training uncertainty.

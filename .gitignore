@@ -5,3 +5,13 @@ artifacts/
 .Rproj.user/
 outputs/*.csv
 !outputs/README.md
+.r-library/
+renv/library/
+renv/staging/
+renv/cache/
+!outputs/test_metrics.csv
+!outputs/subgroup_metrics.csv
+!outputs/threshold_analysis.csv
+!outputs/validation_model_comparison.csv
+!outputs/precision_recall_curve.csv
+!outputs/calibration_bins.csv

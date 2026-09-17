@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Student success model evaluation summary</title>
+  <desc id="desc">Temporal holdout performance and operational capacity results for a synthetic early-warning model.</desc>
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="42" y="42" width="1116" height="546" rx="24" fill="#111f38" stroke="#334155"/>
+  <text x="82" y="105" fill="#f8fafc" font-family="Arial, sans-serif" font-size="36" font-weight="700">Temporal holdout evaluation</text>
+  <text x="82" y="143" fill="#94a3b8" font-family="Arial, sans-serif" font-size="21">2025–26 synthetic cohort • model and threshold locked before testing</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="82" y="188" width="245" height="155" rx="16" fill="#162b4a"/>
+    <text x="108" y="231" fill="#93c5fd" font-size="18">ROC AUC</text>
+    <text x="108" y="292" fill="#f8fafc" font-size="48" font-weight="700">{{roc_auc}}</text>
+    <text x="108" y="321" fill="#94a3b8" font-size="16">ranking performance</text>
+
+    <rect x="346" y="188" width="245" height="155" rx="16" fill="#162b4a"/>
+    <text x="372" y="231" fill="#86efac" font-size="18">Average precision</text>
+    <text x="372" y="292" fill="#f8fafc" font-size="48" font-weight="700">{{average_precision}}</text>
+    <text x="372" y="321" fill="#94a3b8" font-size="16">baseline prevalence: {{prevalence}}</text>
+
+    <rect x="610" y="188" width="245" height="155" rx="16" fill="#162b4a"/>
+    <text x="636" y="231" fill="#fde68a" font-size="18">Brier score</text>
+    <text x="636" y="292" fill="#f8fafc" font-size="48" font-weight="700">{{brier_score}}</text>
+    <text x="636" y="321" fill="#94a3b8" font-size="16">lower is better</text>
+
+    <rect x="874" y="188" width="244" height="155" rx="16" fill="#162b4a"/>
+    <text x="900" y="231" fill="#c4b5fd" font-size="18">Precision</text>
+    <text x="900" y="292" fill="#f8fafc" font-size="48" font-weight="700">{{precision_percent}}</text>
+    <text x="900" y="321" fill="#94a3b8" font-size="16">at locked threshold</text>
+  </g>
+
+  <text x="82" y="399" fill="#f8fafc" font-family="Arial, sans-serif" font-size="25" font-weight="700">Capacity monitoring</text>
+  <text x="82" y="438" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="18">Validation target</text>
+  <rect x="265" y="420" width="450" height="24" rx="12" fill="#26364e"/>
+  <rect x="265" y="420" width="270" height="24" rx="12" fill="#3b82f6"/>
+  <text x="735" y="439" fill="#f8fafc" font-family="Arial, sans-serif" font-size="19" font-weight="700">15.0%</text>
+
+  <text x="82" y="491" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="18">Holdout flagged</text>
+  <rect x="265" y="473" width="450" height="24" rx="12" fill="#26364e"/>
+  <rect x="265" y="473" width="{{flagged_width}}" height="24" rx="12" fill="#f59e0b"/>
+  <text x="735" y="492" fill="#f8fafc" font-family="Arial, sans-serif" font-size="19" font-weight="700">{{flagged_percent}}</text>
+
+  <rect x="832" y="399" width="286" height="116" rx="16" fill="#2a2031" stroke="#7c3aed"/>
+  <text x="856" y="435" fill="#ddd6fe" font-family="Arial, sans-serif" font-size="17" font-weight="700">Operational finding</text>
+  <text x="856" y="466" fill="#f8fafc" font-family="Arial, sans-serif" font-size="16">A fixed cutoff does not</text>
+  <text x="856" y="489" fill="#f8fafc" font-family="Arial, sans-serif" font-size="16">guarantee a fixed workload.</text>
+  <text x="82" y="552" fill="#94a3b8" font-family="Arial, sans-serif" font-size="16">Synthetic benchmark • support-review queue only • predictions are not causal</text>
+</svg>

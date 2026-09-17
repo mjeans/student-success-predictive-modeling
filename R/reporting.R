@@ -1,3 +1,20 @@
+# Fixed-model, school-resampling percentile intervals for descriptive audits.
+cluster_intervals <- function(truth, probability, threshold, school, replicates = 500L) {
+  flag <- probability >= threshold
+  totals <- rowsum(cbind(tp = as.integer(flag & truth == 1L),
+                        positive = as.integer(truth == 1L), flagged = as.integer(flag)),
+                  group = school, reorder = FALSE)
+  if (nrow(totals) < 2L) return(rep(NA_real_, 4))
+  set.seed(20260917)
+  bootstrap <- replicate(replicates, {
+    z <- colSums(totals[sample.int(nrow(totals), nrow(totals), replace = TRUE), , drop = FALSE])
+    c(sensitivity = if (z["positive"] > 0) z["tp"] / z["positive"] else NA_real_,
+      precision = if (z["flagged"] > 0) z["tp"] / z["flagged"] else NA_real_)
+  })
+  c(quantile(bootstrap[1, ], c(.025, .975), na.rm = TRUE, names = FALSE),
+    quantile(bootstrap[2, ], c(.025, .975), na.rm = TRUE, names = FALSE))
+}
+
 subgroup_metrics <- function(data, probability, threshold, group_variable,
                              minimum_n = 100L) {
   groups <- unique(data[[group_variable]])
@@ -6,33 +23,28 @@ subgroup_metrics <- function(data, probability, threshold, group_variable,
     n <- sum(selected)
     truth <- data$chronic_absence[selected]
     p <- probability[selected]
-
-    if (n < minimum_n) {
-      return(data.frame(
-        group_variable = group_variable,
-        group = as.character(group_value),
-        n = n,
-        prevalence = NA_real_,
-        flagged_rate = NA_real_,
-        sensitivity = NA_real_,
-        precision = NA_real_,
-        brier_score = NA_real_,
-        suppressed = TRUE
-      ))
-    }
-
-    classified <- classification_metrics(truth, p, threshold)
+    positive <- sum(truth == 1L)
+    flagged <- sum(p >= threshold)
+    tp <- sum(truth == 1L & p >= threshold)
+    suppressed <- n < minimum_n
+    ci <- if (suppressed) rep(NA_real_, 4) else
+      cluster_intervals(truth, p, threshold, data$school_id[selected])
     data.frame(
-      group_variable = group_variable,
-      group = as.character(group_value),
-      n = n,
-      prevalence = mean(truth),
-      flagged_rate = classified[["flagged_rate"]],
-      sensitivity = classified[["sensitivity"]],
-      precision = classified[["precision"]],
-      brier_score = mean((p - truth)^2),
-      suppressed = FALSE
-    )
+      group_variable = group_variable, group = as.character(group_value), n = n,
+      schools = length(unique(data$school_id[selected])),
+      positives = if (suppressed) NA_integer_ else positive,
+      flagged = if (suppressed) NA_integer_ else flagged,
+      true_positives = if (suppressed) NA_integer_ else tp,
+      prevalence = if (suppressed) NA_real_ else mean(truth),
+      flagged_rate = if (suppressed) NA_real_ else mean(p >= threshold),
+      sensitivity = if (suppressed || positive < 20) NA_real_ else tp / positive,
+      sensitivity_lower = if (suppressed || positive < 20) NA_real_ else ci[1],
+      sensitivity_upper = if (suppressed || positive < 20) NA_real_ else ci[2],
+      precision = if (suppressed || flagged < 20) NA_real_ else tp / flagged,
+      precision_lower = if (suppressed || flagged < 20) NA_real_ else ci[3],
+      precision_upper = if (suppressed || flagged < 20) NA_real_ else ci[4],
+      brier_score = if (suppressed) NA_real_ else mean((p - truth)^2),
+      suppressed = suppressed)
   })
   do.call(rbind, rows)
 }

@@ -77,7 +77,7 @@ compare_models <- function(models, validation_data, capacity_rate = 0.15) {
 
   comparison <- do.call(rbind, rows)
   comparison <- comparison[
-    order(-comparison$pr_auc, comparison$brier_score),
+    order(-comparison$average_precision, comparison$brier_score),
     ,
     drop = FALSE
   ]
