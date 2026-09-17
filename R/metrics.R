@@ -11,14 +11,23 @@ roc_auc <- function(truth, probability) {
     (positive * negative)
 }
 
-pr_auc <- function(truth, probability) {
+average_precision <- function(truth, probability) {
+  if (length(truth) != length(probability) || length(truth) == 0L ||
+      anyNA(truth) || !all(truth %in% c(0L, 1L)) ||
+      any(!is.finite(probability))) {
+    stop("Average precision requires paired binary outcomes and finite scores.")
+  }
   positive <- sum(truth == 1L)
   if (positive == 0L) return(NA_real_)
   order_index <- order(probability, decreasing = TRUE)
   ordered_truth <- truth[order_index]
+  scores <- probability[order_index]
+  # One operating point per distinct score: ties must enter together.
+  ends <- c(which(diff(scores) != 0), length(scores))
   cumulative_tp <- cumsum(ordered_truth == 1L)
-  precision <- cumulative_tp / seq_along(ordered_truth)
-  sum(precision[ordered_truth == 1L]) / positive
+  precision <- cumulative_tp[ends] / ends
+  recall <- cumulative_tp[ends] / positive
+  sum(diff(c(0, recall)) * precision)
 }
 
 calibration_statistics <- function(truth, probability) {
@@ -54,7 +63,7 @@ probability_metrics <- function(truth, probability, threshold) {
   c(
     prevalence = mean(truth),
     roc_auc = roc_auc(truth, p),
-    pr_auc = pr_auc(truth, p),
+    average_precision = average_precision(truth, p),
     brier_score = mean((p - truth)^2),
     log_loss = -mean(truth * log(p) + (1 - truth) * log(1 - p)),
     calibration,

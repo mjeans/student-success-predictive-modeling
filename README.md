@@ -21,13 +21,13 @@ The output is a **support-review queue**, not an automated decision. Staff must 
 
 ## Reference results
 
-The deterministic benchmark compares logistic regression with a constrained decision tree. Logistic regression is selected on the 2024–25 validation cohort using PR AUC first and Brier score second. The final model is evaluated once on the untouched 2025–26 cohort.
+The deterministic benchmark compares logistic regression with a constrained decision tree. Logistic regression is selected on the 2024–25 validation cohort using average precision first and Brier score second. The final model is evaluated once on the untouched 2025–26 cohort.
 
 | Holdout measure | Result | Interpretation |
 |---|---:|---|
 | Chronic-absence prevalence | 25.0% | Higher than the 20.5% validation cohort |
 | ROC AUC | 0.803 | Useful ranking performance on the later cohort |
-| PR AUC | 0.614 | Material lift over the 25.0% prevalence baseline |
+| average precision | 0.614 | Material lift over the 25.0% prevalence baseline |
 | Brier score | 0.141 | Probability error remains informative but not negligible |
 | Validation threshold | 0.421 | Selected to match 15% review capacity in validation |
 | Holdout flagged rate | 17.6% | Capacity drift requires monitoring or threshold refresh |
@@ -43,7 +43,7 @@ These figures are predictive, not causal. They describe a synthetic benchmark an
 - Train/validation/test splits based on academic year rather than random rows
 - Median imputation learned from training data only, with missingness indicators
 - Logistic regression and decision-tree candidate models using base/recommended R packages
-- Model selection based on PR AUC and Brier score rather than accuracy alone
+- Model selection based on average precision and Brier score rather than accuracy alone
 - Capacity-aware threshold selection and sensitivity analysis
 - Calibration intercept, calibration slope, expected calibration error, and Brier score
 - Subgroup monitoring with minimum-cell suppression
@@ -77,9 +77,10 @@ outputs/      Documentation for runtime-generated evaluation files
 
 ## Reproduce the analysis
 
-R and the recommended `rpart` package are the only requirements.
+Use R 4.6.x and restore the pinned model/graphics dependencies first.
 
 ```bash
+Rscript scripts/restore_environment.R
 make all
 ```
 
@@ -90,6 +91,7 @@ Rscript scripts/01_generate_data.R
 Rscript scripts/02_train_models.R
 Rscript scripts/03_evaluate_models.R
 Rscript scripts/04_score_new_cohort.R
+Rscript scripts/05_publish_report.R
 Rscript tests/test_pipeline.R
 ```
 
@@ -102,3 +104,13 @@ The model intentionally does not use gender, race/ethnicity, economic-disadvanta
 See the [model card](docs/model-card.md) for intended use and limitations, the [decision memo](docs/decision-memo.md) for operational recommendations, and the [data dictionary](docs/data-dictionary.md) for field definitions.
 
 Built as a public portfolio demonstration by [Matthew Jeans, PhD](https://github.com/mjeans).
+
+## Reproducible environment
+
+Restore dependencies with `Rscript scripts/restore_environment.R` before running the analysis from the repository root. See [environment notes](docs/environment.md) and the committed `renv.lock`.
+
+Read the [executed holdout report](outputs/report.md) for source-generated evaluation, precision–recall and calibration plots, subgroup denominators, and school-cluster bootstrap intervals.
+
+![Holdout calibration with bin sizes](assets/calibration.svg)
+
+![Tie-aware precision-recall curve](assets/precision-recall.svg)

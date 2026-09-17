@@ -13,7 +13,7 @@
     <text x="108" y="321" fill="#94a3b8" font-size="16">ranking performance</text>
 
     <rect x="346" y="188" width="245" height="155" rx="16" fill="#162b4a"/>
-    <text x="372" y="231" fill="#86efac" font-size="18">PR AUC</text>
+    <text x="372" y="231" fill="#86efac" font-size="18">Average precision</text>
     <text x="372" y="292" fill="#f8fafc" font-size="48" font-weight="700">0.614</text>
     <text x="372" y="321" fill="#94a3b8" font-size="16">baseline prevalence: 0.250</text>
 
@@ -36,7 +36,7 @@
 
   <text x="82" y="491" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="18">Holdout flagged</text>
   <rect x="265" y="473" width="450" height="24" rx="12" fill="#26364e"/>
-  <rect x="265" y="473" width="317" height="24" rx="12" fill="#f59e0b"/>
+  <rect x="265" y="473" width="316.8" height="24" rx="12" fill="#f59e0b"/>
   <text x="735" y="492" fill="#f8fafc" font-family="Arial, sans-serif" font-size="19" font-weight="700">17.6%</text>
 
   <rect x="832" y="399" width="286" height="116" rx="16" fill="#2a2031" stroke="#7c3aed"/>

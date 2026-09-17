@@ -47,8 +47,8 @@ write.csv(subgroups, "outputs/subgroup_metrics.csv", row.names = FALSE)
 write.csv(thresholds, "outputs/threshold_analysis.csv", row.names = FALSE)
 
 cat(sprintf(
-  "Test ROC AUC: %.3f | PR AUC: %.3f | Brier: %.3f\n",
+  "Test ROC AUC: %.3f | Average precision: %.3f | Brier: %.3f\n",
   test_metrics$roc_auc,
-  test_metrics$pr_auc,
+  test_metrics$average_precision,
   test_metrics$brier_score
 ))
