@@ -15,3 +15,5 @@ renv/cache/
 !outputs/validation_model_comparison.csv
 !outputs/precision_recall_curve.csv
 !outputs/calibration_bins.csv
+!outputs/input-drift.csv
+!outputs/grade-drift.csv

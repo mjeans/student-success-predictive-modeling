@@ -1,6 +1,6 @@
-.PHONY: all data train evaluate score test clean
+.PHONY: all data train evaluate score report monitor test clean
 
-all: data train evaluate score report test
+all: data train evaluate score report monitor test
 
 data:
 	Rscript scripts/01_generate_data.R
@@ -16,6 +16,10 @@ score: train
 
 test:
 	Rscript tests/test_pipeline.R
+	Rscript tests/test_input_monitoring.R
+
+monitor: train
+	Rscript scripts/06_monitor_inputs.R
 
 report: evaluate
 	Rscript scripts/05_publish_report.R

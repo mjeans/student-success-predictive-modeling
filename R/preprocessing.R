@@ -19,7 +19,10 @@ audit_features <- c(
   "disability_status"
 )
 
+source("R/input_monitoring.R")
+
 fit_preprocessor <- function(training_data) {
+  validate_scoring_inputs(training_data)
   medians <- vapply(
     training_data[model_numeric_features],
     median,
@@ -27,13 +30,16 @@ fit_preprocessor <- function(training_data) {
     na.rm = TRUE
   )
 
+  if (any(!is.finite(medians))) stop("A training predictor has no finite median; review its source.")
   list(
     medians = medians,
-    grade_levels = levels(training_data$grade_band)
+    grade_levels = c("K-2", "3-5", "6-8", "9-12"),
+    monitoring_reference = fit_monitoring_reference(training_data)
   )
 }
 
 apply_preprocessor <- function(data, preprocessor) {
+  validate_scoring_inputs(data)
   prepared <- data
 
   for (feature in model_numeric_features) {

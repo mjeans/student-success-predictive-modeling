@@ -21,6 +21,8 @@ The output is a **support-review queue**, not an automated decision. Staff must 
 
 ## Reference results
 
+**Beyond model fitting:** [Scoring-input monitoring and controlled failure drills](outputs/input-monitoring-report.md) demonstrate wrong-unit detection, schema checks, missing-feed alerts, and training-reference drift review. [Read the policy](docs/input-monitoring.md). The model's existing validation threshold and graphics are unchanged.
+
 The deterministic benchmark compares logistic regression with a constrained decision tree. Logistic regression is selected on the 2024–25 validation cohort using average precision first and Brier score second. The final model is evaluated once on the untouched 2025–26 cohort.
 
 | Holdout measure | Result | Interpretation |

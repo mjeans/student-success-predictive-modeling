@@ -1,0 +1,5 @@
+"grade","reference_share","current_share","absolute_change","status"
+"K-2",0.2425,0.2595,0.017,"within_thresholds"
+"3-5",0.241,0.247,0.00600000000000001,"within_thresholds"
+"6-8",0.257,0.2565,5e-04,"within_thresholds"
+"9-12",0.2595,0.237,0.0225,"within_thresholds"
